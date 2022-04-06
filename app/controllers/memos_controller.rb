@@ -5,8 +5,6 @@ class MemosController < ApplicationController
   def index
     @memos = Memo.all
   end
-<<<<<<< Updated upstream
-=======
 
   def new
     @memo = Memo.new
@@ -52,5 +50,5 @@ class MemosController < ApplicationController
   def set_memo
     @memo = Memo.find(params[:id])
   end
->>>>>>> Stashed changes
+
 end
