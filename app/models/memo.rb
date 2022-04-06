@@ -3,5 +3,5 @@ class Memo < ApplicationRecord
   has_many :comments
 
   validates :title, presence: true
-  validates :goal , presence: true
+  validates :goal, presence: true
 end
