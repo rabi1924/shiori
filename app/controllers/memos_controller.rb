@@ -21,6 +21,8 @@ class MemosController < ApplicationController
   end
 
   def show
+    @comment = Comment.new
+    @comments = @memo.comments.includes(:user)
   end
 
   def edit
@@ -51,4 +53,7 @@ class MemosController < ApplicationController
     @memo = Memo.find(params[:id])
   end
 
+  def comment_params
+    params.require(:comment).permit(:content).merge(user_id: current_user.id, memo_id: params[:memo_id])
+  end
 end
