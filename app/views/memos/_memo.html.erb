@@ -5,6 +5,6 @@
     <p class="card__summary">
       <%= memo.goal %>
     </p>
-    <%= link_to "by #{memo.user.nickname}", root_path, class: :card__user %>
+    <%= link_to "by #{memo.user.nickname}", user_path(memo.user.id), class: :card__user %>
   </div>
 </div>
