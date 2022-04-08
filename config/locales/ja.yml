@@ -1,0 +1,12 @@
+ja:
+  activerecord:
+    attributes:
+      user:
+        nickname: ニックネーム
+        book: これから読みたい本
+        profile: プロフィール
+      memo:
+        title: 本のタイトル
+        goal: 読む目的
+      comment:
+        content: コメント
