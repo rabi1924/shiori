@@ -26,6 +26,7 @@ class MemosController < ApplicationController
   end
 
   def edit
+    redirect_to action: :index unless user_signed_in? && current_user.id == @memo.user_id
   end
 
   def update
