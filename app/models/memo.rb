@@ -4,4 +4,12 @@ class Memo < ApplicationRecord
 
   validates :title, presence: true
   validates :goal, presence: true
+
+  def self.search(search)
+    if search != ''
+      Memo.where('title LIKE(?)', "%#{search}%")
+    else
+      Memo.all
+    end
+  end
 end

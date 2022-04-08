@@ -3,6 +3,9 @@ Rails.application.routes.draw do
   root to: "memos#index"
   resources :memos do
     resources :comments
+    collection do
+      get 'search'
+    end
   end
   resources :users, only: :show
 end

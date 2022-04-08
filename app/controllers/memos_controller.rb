@@ -1,5 +1,5 @@
 class MemosController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!, except: [:index, :show, :search]
   before_action :set_memo, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -42,6 +42,10 @@ class MemosController < ApplicationController
   def destroy
     @memo.destroy
     redirect_to root_path
+  end
+
+  def search
+    @memos = Memo.search(params[:keyword])
   end
 
   private
