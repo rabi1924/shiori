@@ -1,9 +1,9 @@
 class MemosController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show, :search]
-  before_action :set_memo, only: [:show, :edit, :update, :destroy]
+  before_action :set_memo, only: [:show, :edit, :update, :destroy, :toggle_status]
 
   def index
-    @memos = Memo.all.order('created_at DESC')
+    @memos = Memo.status_public.order('created_at DESC')
   end
 
   def new
@@ -21,6 +21,7 @@ class MemosController < ApplicationController
   end
 
   def show
+    redirect_to memos_path if @memo.status_private? && @memo.user.id != current_user.id
     @comment = Comment.new
     @comments = @memo.comments.includes(:user)
   end
@@ -45,17 +46,22 @@ class MemosController < ApplicationController
   end
 
   def search
-    @memos = Memo.search(params[:keyword])
+    @memos = Memo.status_public.search(params[:keyword])
+  end
+
+  def toggle_status
+    @memo.toggle_status!
+    redirect_to root_path
   end
 
   private
 
   def memo_params
-    params.require(:memo).permit(:title, :goal, :action, :note).merge(user_id: current_user.id)
+    params.require(:memo).permit(:title, :goal, :action, :note, :status).merge(user_id: current_user.id)
   end
 
   def set_memo
-    @memo = Memo.find(params[:id])
+    @memo = Memo.find(params[:id] || params[:memo_id])
   end
 
   def comment_params

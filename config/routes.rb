@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :memos do
     resources :comments, only: :create
     resource :favorites, only: [:create, :destroy]
+    patch :toggle_status
     collection do
       get 'search'
     end
