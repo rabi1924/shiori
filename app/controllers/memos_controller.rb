@@ -3,7 +3,7 @@ class MemosController < ApplicationController
   before_action :set_memo, only: [:show, :edit, :update, :destroy]
 
   def index
-    @memos = Memo.all
+    @memos = Memo.all.order('created_at DESC')
   end
 
   def new
