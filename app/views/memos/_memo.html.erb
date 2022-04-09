@@ -20,4 +20,15 @@
     <%# <span>❤︎</span> %>
     <% end %>
   <% end %>
+  <%# <%= link_to memo.status, memo_toggle_status_path(memo), method: :patch %>
+  <% if memo.status_public? %>
+      <div class="btn btn-primary mr-5 float-left">公開中</div>
+  <% else %>
+      <div class="btn btn-success mr-5 float-left">非公開</div>
+  <% end %>
+  <% if memo.status_public? %>
+    <%= link_to "非公開にする", memo_toggle_status_path(memo.id), method: :patch, class: "btn btn-outline-danger" %>
+  <% else %>
+    <%= link_to "公開する", memo_toggle_status_path(memo.id), method: :patch, class: "btn btn-outline-danger" %>
+  <% end %>
 </div>

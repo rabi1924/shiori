@@ -20,6 +20,11 @@
     <%= f.text_area :note, class: :form__text, id:"memo_note" %>
   </div>
 
+  <div class="form-group">
+   <label>ステータス</label><br>
+   <%= f.select :status, [["公開", "public"],["非公開", "private"]], id: "status", class: "form-control" %>
+  </div>
+
   <div class="actions">
     <%= f.submit "保存する", class: :form__btn  %>
   </div>
