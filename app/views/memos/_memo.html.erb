@@ -7,4 +7,17 @@
     </p>
     <%= link_to "by #{memo.user.nickname}", user_path(memo.user.id), class: :card__user %>
   </div>
+  <% if memo.favorited?(current_user) %>
+  <%# 一致するレコードが存在する＝すでにいいね済みの場合はdestroyアクションへ %>
+    <%= link_to memo_favorites_path(memo.id), method: :delete do %>
+    ♥<%= memo.favorites.count %> いいね！
+    <%# <span style="color:red;">❤︎</span> %>
+    <% end %>
+  <% else %>
+  <%# 一致するレコードが存在しない＝まだいいねしていない場合はcreateアクションへ %>
+    <%= link_to memo_favorites_path(memo.id), method: :post do %>
+    ♡<%= memo.favorites.count %> いいね！
+    <%# <span>❤︎</span> %>
+    <% end %>
+  <% end %>
 </div>
