@@ -60,7 +60,7 @@
           <%# // 投稿に紐づくコメントを一覧する処理を記述する %>
         </ul>
       </div>
-      <% if @memo.favorited?(current_user) %>
+      <% if @memo.favorited_by?(current_user) %>
       <%# 一致するレコードが存在する＝すでにいいね済みの場合はdestroyアクションへ %>
         <%= link_to memo_favorites_path(@memo.id), method: :delete do %>
         ♥<%= @memo.favorites.count %> いいね！
