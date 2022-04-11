@@ -6,8 +6,8 @@ class FavoritesController < ApplicationController
   end
 
   def destroy
-    @mwmo_favorite = Favorite.find_by(user_id: current_user.id, memo_id: params[:memo_id])
-    @mwmo_favorite.destroy
+    @memo_favorite = Favorite.find_by(user_id: current_user.id, memo_id: params[:memo_id])
+    @memo_favorite.destroy
     redirect_to memo_path(params[:memo_id])
   end
 end

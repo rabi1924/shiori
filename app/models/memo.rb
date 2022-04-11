@@ -16,8 +16,8 @@ class Memo < ApplicationRecord
     end
   end
 
-  def favorited?(user)
-    favorites.where(user_id: user.id).exists?
+  def favorited_by?(user)
+    favorites.where(user_id: user_id).exists?
   end
 
   def toggle_status!
