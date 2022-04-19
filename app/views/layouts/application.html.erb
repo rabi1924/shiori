@@ -2,37 +2,39 @@
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ProtoSpace</title>
+    <title>Shiori</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP:400,700,900&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
   </head>
 
   <body>
-    <header class="header">
+    <header class="header bg-white border-b-4 border-indigo-900 font-serif">
       <div class="inner">
         <div class="nav">
-          <div class="nav__left">
-            <%= link_to image_tag("logo.png", class: :logo), root_path %>
+          <div class="nav__left my-auto text-7xl text-indigo-900 font-black">
+            <%= link_to "Shiori", root_path %>
           </div>
-          <%= form_with(url: search_memos_path, local: true, method: :get, class: "search-form") do |form| %>
-          <%= form.text_field :keyword, placeholder: "検索する", class: "search-input" %>
-          <%= form.submit "検索", class: "search-btn" %>
+          <%= form_with(url: search_memos_path, local: true, method: :get, class: "search-form my-auto") do |form| %>
+          <%= form.text_field :keyword, placeholder: "book title search", class: "search-input border-2 border-indigo-900 text-4xl text-indigo-900 font-normal rounded" %>
+          <%= form.submit "search", class: "search-btn bg-indigo-900 text-white text-2xl font-normal py-2 px-2 rounded" %>
           <% end %>
           <%# ログインしているときは以下を表示するようにしましょう %>
           <% if user_signed_in? %>
-            <div class="nav__right">
-              <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: :nav__logout %>
-              <%= link_to "New Proto", new_memo_path, class: :nav__btn %>
+            <div class="nav__right my-auto">
+              <%= link_to "rog out", destroy_user_session_path, method: :delete, class: "nav__logout bg-indigo-900 text-white text-3xl font-normal py-4 px-4 rounded" %>
+              <%= link_to "#{current_user.nickname}", "/users/#{current_user.id}", class: "nav__btn bg-indigo-900 text-white text-3xl font-normal py-4 px-4 rounded" %>
             </div>
           <% else %>
           <%# // ログインしているときは上記を表示するようにしましょう %>
           <%# ログインしていないときは以下を表示するようにしましょう %>
             <div class="nav__right">
-              <%= link_to "ログイン", new_user_session_path, class: :nav__btn %>
-              <%= link_to "新規登録", new_user_registration_path, class: :nav__btn %>
+              <%= link_to "rog in", new_user_session_path, class: "nav__btn bg-indigo-900 text-white text-3xl font-normal py-4 px-4 rounded"%>
+              <%= link_to "sign up", new_user_registration_path, class: "nav__btn bg-indigo-900 text-white text-3xl font-normal py-4 px-4 rounded"%>
             </div>
           <%# // ログインしていないときは上記を表示するようにしましょう %>
           <% end %>
@@ -41,7 +43,7 @@
     </header>
     <%= yield %>
     <footer class="footer">
-      <p class="copyright">Copyright © PROTO SPACE All rights reserved.</p>
+      <p class="copyright">Copyright © Shiori All rights reserved.</p>
     </footer>
   </body>
 </html>
