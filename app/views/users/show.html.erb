@@ -1,27 +1,23 @@
-<div class="main">
+<div class="main font-serif font-black">
   <div class="inner">
     <div class="user__wrapper">
-      <h2 class="page-heading">
-        <%= "#{@nickname}の情報"%>
+      <h2 class="page-heading text-4xl text-indigo-900 flex justify-center">
+        <%= "#{@nickname}"%>
       </h2>
-      <table class="table">
+      <table class="table text-2xl text-indigo-900 w-full h-64">
         <tbody>
           <tr>
-            <th class="table__col1">ニックネーム</th>
-            <td class="table__col2"><%= @nickname %></td>
+            <th class="table__col1 bg-indigo-900 text-white border-4 border-indigo-900 w-1/12 h-1/3 text-center">book of interest</th>
+            <td class="table__col2 border-4 border-indigo-900 h-1/3"><%= @user.book %></td>
           </tr>
           <tr>
-            <th class="table__col1">これから読みたい本</th>
-            <td class="table__col2"><%= @user.book %></td>
-          </tr>
-          <tr>
-            <th class="table__col1">プロフィール</th>
-            <td class="table__col2"><%= @user.profile %></td>
-          </tr>
+            <th class="table__col1 bg-indigo-900 text-white border-4 border-indigo-900 w-1/12 h-2/3 text-center">profile</th>
+            <td class="table__col2 border-4 border-indigo-900 h-2/3"><%= @user.profile %></td>
+          </tr> 
         </tbody>
       </table>
-      <h2 class="page-heading">
-        <%= "#{@nickname}の読書メモ"%>
+      <h2 class="page-heading text-4xl text-indigo-900 flex justify-center">
+        <%="memo"%>
       </h2>
       <div class="user__card">
         <%= render partial: 'memos/memo', collection: @memos %>
