@@ -1,55 +1,85 @@
-<main class="main">
+<main class="main font-serif">
   <div class="inner">
     <div class="prototype__wrapper">
-      <p class="prototype__hedding">
-        <%= @memo.title %>
-      </p>
-      <%= link_to "by #{@memo.user.nickname}", user_path(@memo.user.id), class: :prototype__user %>
+      <%= link_to "#{@memo.user.nickname}", user_path(@memo.user.id), class: "prototype__user text-4xl text-indigo-900 font-black" %>
       <%# プロトタイプの投稿者とログインしているユーザーが同じであれば以下を表示する %>
       <% if user_signed_in? && current_user.id == @memo.user_id %>
         <div class="prototype__manage">
-          <%= link_to "編集する", edit_memo_path(@memo.id), class: :prototype__btn %>
-          <%= link_to "削除する", memo_path(@memo.id), method: :delete, class: :prototype__btn %>
+          <%= link_to "edit", edit_memo_path(@memo.id), class: :prototype__btn %>
+          <%= link_to "delete", memo_path(@memo.id), method: :delete, class: :prototype__btn %>
         </div>
       <% end %>
       <%# // プロトタイプの投稿者とログインしているユーザーが同じであれば上記を表示する %>
-      <%# <div class="prototype__image">
-        <%= image_tag "プロトタイプの画像" %>
-      </#div>
+      <p class="prototype__hedding text-4xl text-indigo-900 font-black">
+        <%= @memo.title %>
+      </p>
       <div class="prototype__body">
         <div class="prototype__detail">
-          <p class="detail__title">読む目的</p>
+          <p class="detail__title text-2xl text-indigo-900 font-black">Purpose</p>
           <p class="detail__message">
             <%= @memo.goal %>
           </p>
         </div>
         <div class="prototype__detail">
-          <p class="detail__title">今後のアクションプラン</p>
+          <p class="detail__title text-2xl text-indigo-900 font-black">To Do</p>
           <p class="detail__message">
             <%= @memo.action %>
           </p>
         </div>
+        <div class="prototype__detail">
+          <p class="detail__title text-2xl text-indigo-900 font-black">Note</p>
+          <p class="detail__message">
+            <%= @memo.note %>
+          </p>
+        </div>
+        <div class="flex justify-end">
+        <% if @memo.favorited_by?(current_user) %>
+        <%# 一致するレコードが存在する＝すでにいいね済みの場合はdestroyアクションへ %>
+          <%= link_to memo_favorites_path(@memo.id), method: :delete do %>
+          ♥<%= @memo.favorites.count %> LGTM！
+          <%# <span style="color:red;">❤︎</span> %>
+          <% end %>
+        <% else %>
+        <%# 一致するレコードが存在しない＝まだいいねしていない場合はcreateアクションへ %>
+          <%= link_to memo_favorites_path(@memo.id), method: :post do %>
+          ♡<%= @memo.favorites.count %> LGTM！
+          <%# <span>❤︎</span> %>
+          <% end %>
+        <% end %>
+
+        <% if @memo.status_public? %>
+          <div class="btn btn-primary mr-5 float-left">public</div>
+        <% else %>
+          <div class="btn btn-success mr-5 float-left">private</div>
+        <% end %>
+        <% if @memo.status_public? %>
+          <%= link_to "private?", memo_toggle_status_path(@memo.id), method: :patch, class: "btn btn-outline-danger" %>
+        <% else %>
+          <%= link_to "public?", memo_toggle_status_path(@memo.id), method: :patch, class: "btn btn-outline-danger" %>
+        <% end %>
       </div>
+      </div>
+
       <div class="prototype__comments">
         <%# ログインしているユーザーには以下のコメント投稿フォームを表示する %>
         <% if user_signed_in? %>
           <%= form_with(model: [@memo, @comment], local: true) do |f|%>
           <%= render 'layouts/error_messages', model: f.object %>
-            <div class="field">
-              <%= f.label :content, "コメント" %><br />
+            <div class="field text-2xl text-indigo-900 font-black text-center">
+              <%= f.label :content, "Comment" %><br />
               <%= f.text_field :content, id:"comment_content" %>
             </div>
-            <div class="actions">
-              <%= f.submit "送信する", class: :form__btn  %>
+            <div class="actions flex justify-end">
+              <%= f.submit "comment", class: "form__btn bg-indigo-900 text-white text-2xl font-normal py-2 px-2 rounded" %>
             </div>
           <% end %>
         <% else %>
-          <strong><p>※※※ コメントの投稿には新規登録/ログインが必要です ※※※</p></strong>
+          <strong class="text-2xl text-indigo-900 font-black"><p>If you want to comment, you need to sign up/rog in.</p></strong>
         <% end %>
         <%# // ログインしているユーザーには上記を表示する %>
-        <ul class="comments_lists">
+        <ul class="comments_lists text-2xl text-indigo-900 font-black">
           <%# 投稿に紐づくコメントを一覧する処理を記述する %>
-            <li class="comments_list">
+            <li class="comments_list list-none">
             <% @comments.each do |comment| %>
               <p>
                 <%= comment.content %>
@@ -60,29 +90,6 @@
           <%# // 投稿に紐づくコメントを一覧する処理を記述する %>
         </ul>
       </div>
-      <% if @memo.favorited_by?(current_user) %>
-      <%# 一致するレコードが存在する＝すでにいいね済みの場合はdestroyアクションへ %>
-        <%= link_to memo_favorites_path(@memo.id), method: :delete do %>
-        ♥<%= @memo.favorites.count %> いいね！
-        <%# <span style="color:red;">❤︎</span> %>
-        <% end %>
-      <% else %>
-      <%# 一致するレコードが存在しない＝まだいいねしていない場合はcreateアクションへ %>
-        <%= link_to memo_favorites_path(@memo.id), method: :post do %>
-        ♡<%= @memo.favorites.count %> いいね！
-        <%# <span>❤︎</span> %>
-        <% end %>
-      <% end %>
-      <% if @memo.status_public? %>
-        <div class="btn btn-primary mr-5 float-left">公開中</div>
-      <% else %>
-        <div class="btn btn-success mr-5 float-left">非公開</div>
-      <% end %>
-      <% if @memo.status_public? %>
-        <%= link_to "非公開にする", memo_toggle_status_path(@memo.id), method: :patch, class: "btn btn-outline-danger" %>
-      <% else %>
-        <%= link_to "公開する", memo_toggle_status_path(@memo.id), method: :patch, class: "btn btn-outline-danger" %>
-      <% end %>
     </div>
   </div>
 </main>
