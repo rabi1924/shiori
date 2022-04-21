@@ -10,7 +10,7 @@ class Memo < ApplicationRecord
 
   def self.search(search)
     if search != ''
-      Memo.includes(:user).where(['title LIKE(?) OR nickname LIKE(?)', "%#{search}%","%#{search}%"]).references(:user)
+      Memo.includes(:user).where(['title LIKE(?) OR nickname LIKE(?)', "%#{search}%", "%#{search}%"]).references(:user)
     else
       Memo.all
     end
