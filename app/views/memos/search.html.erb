@@ -1,21 +1,14 @@
-<main class="main">
-  <div class="inner">
-    <%# ログインしているときは以下を表示する %>
-    <% if user_signed_in? %>
-      <div class="greeting">
-        <%= "こんにちは、"%>
-        <%= link_to "#{current_user.nickname}", "/users/#{current_user.id}", class: :greeting__link%>
-      </div>
-      <div class="card__wrapper">
+<main class="main font-serif font-black">
+  <div class="inner relative">
+    <div class="card__wrapper">
       <%= render partial:'memo', collection: @memos%>
-      <%# 投稿機能実装後、部分テンプレートでプロトタイプ投稿一覧を表示する %>
-      </div>
-      <%# // ログインしているときは上記を表示する %>
-    <% else %>
-      <div class="card__wrapper">
-      <%= render partial:'memo', collection: @memos%>
-      <%# 投稿機能実装後、部分テンプレートでプロトタイプ投稿一覧を表示する %>
-      </div>
-    <% end %>
+    </div>
+      
+    <div class="memo-btn fixed right-0 bottom-0 bg-indigo-900 text-white text-3xl font-normal py-4 px-4 rounded">
+      <%= link_to(new_memo_path, class: "memo-btn") do %>
+      <span class="memo-btn-text">memo</span>
+      <%#= image_tag 'icon_camera.png' , size: '185x50' ,class: "purchase-btn-icon" %>
+      <% end %>
+    </div>
   </div>
 </main>
