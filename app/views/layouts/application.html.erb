@@ -20,7 +20,7 @@
             <%= link_to "Shiori", root_path %>
           </div>
           <%= form_with(url: search_memos_path, local: true, method: :get, class: "search-form my-auto") do |form| %>
-          <%= form.text_field :keyword, placeholder: "book title search", class: "search-input border-2 border-indigo-900 text-4xl text-indigo-900 font-normal rounded" %>
+          <%= form.text_field :keyword, placeholder: "book title or user name", class: "search-input border-2 border-indigo-900 text-4xl text-indigo-900 font-normal rounded" %>
           <%= form.submit "search", class: "search-btn bg-indigo-900 text-white text-2xl font-normal py-2 px-2 rounded" %>
           <% end %>
           <%# ログインしているときは以下を表示するようにしましょう %>
