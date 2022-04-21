@@ -23,6 +23,15 @@
         <%= render partial: 'memos/memo', collection: @memos %>
         <%# 部分テンプレートでそのユーザーが投稿したプロトタイプ投稿一覧を表示する %>
       </div>
+
+      <% if user_signed_in? && current_user.id == @user.id %>
+        <div class="memo-btn fixed right-0 bottom-0 bg-indigo-900 text-white text-3xl font-normal py-4 px-4 rounded">
+          <%= link_to(new_memo_path, class: "memo-btn") do %>
+          <span class="memo-btn-text">memo</span>
+          <%#= image_tag 'icon_camera.png' , size: '185x50' ,class: "purchase-btn-icon" %>
+          <% end %>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>

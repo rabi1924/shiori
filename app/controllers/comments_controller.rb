@@ -10,6 +10,11 @@ class CommentsController < ApplicationController
     end
   end
 
+  def destroy
+    Comment.find_by(params[:id] || params[:memo_id]).destroy
+    redirect_to memo_path
+  end
+
   private
 
   def comment_params

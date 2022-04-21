@@ -1,4 +1,4 @@
-<main class="main font-serif">
+<main class="main font-serif font-black">
   <div class="inner">
     <div class="prototype__wrapper">
       <%= link_to "#{@memo.user.nickname}", user_path(@memo.user.id), class: "prototype__user text-4xl text-indigo-900 font-black" %>
@@ -10,25 +10,25 @@
         </div>
       <% end %>
       <%# // プロトタイプの投稿者とログインしているユーザーが同じであれば上記を表示する %>
-      <p class="prototype__hedding text-4xl text-indigo-900 font-black">
+      <p class="prototype__hedding text-4xl text-indigo-900 ">
         <%= @memo.title %>
       </p>
       <div class="prototype__body">
-        <div class="prototype__detail">
-          <p class="detail__title text-2xl text-indigo-900 font-black">Purpose</p>
-          <p class="detail__message">
+        <div class="prototype__detail text-2xl text-indigo-900">
+          <p class="detail__title">Purpose</p>
+          <p class="detail__message w-full h-32 text-left border-4 border-indigo-900 rounded">
             <%= @memo.goal %>
           </p>
         </div>
-        <div class="prototype__detail">
-          <p class="detail__title text-2xl text-indigo-900 font-black">To Do</p>
-          <p class="detail__message">
+        <div class="prototype__detail text-2xl text-indigo-900">
+          <p class="detail__title">To Do</p>
+          <p class="detail__message w-full h-32 text-left border-4 border-indigo-900 rounded">
             <%= @memo.action %>
           </p>
         </div>
-        <div class="prototype__detail">
-          <p class="detail__title text-2xl text-indigo-900 font-black">Note</p>
-          <p class="detail__message">
+        <div class="prototype__detail text-2xl text-indigo-900">
+          <p class="detail__title">Note</p>
+          <p class="detail__message w-full h-64 text-left border-4 border-indigo-900 rounded">
             <%= @memo.note %>
           </p>
         </div>
@@ -36,7 +36,7 @@
         <% if @memo.favorited_by?(current_user) %>
         <%# 一致するレコードが存在する＝すでにいいね済みの場合はdestroyアクションへ %>
           <%= link_to memo_favorites_path(@memo.id), method: :delete do %>
-          ♥<%= @memo.favorites.count %> LGTM！
+          <span style="color:red;">♥</span><%= @memo.favorites.count %> LGTM！
           <%# <span style="color:red;">❤︎</span> %>
           <% end %>
         <% else %>
@@ -46,17 +46,22 @@
           <%# <span>❤︎</span> %>
           <% end %>
         <% end %>
-
-        <% if @memo.status_public? %>
-          <div class="btn btn-primary mr-5 float-left">public</div>
-        <% else %>
-          <div class="btn btn-success mr-5 float-left">private</div>
+        
+        <% if user_signed_in? && current_user.id == @memo.user_id %>
+          <%= form_with model: @memo, local: true do |f|%>
+          <%= f.select :status, [["public", "public"],["private", "private"]], {}, {id: "status", class: "form-control border-2 border-indigo-900 rounded"} %>
+          <% end %>
         <% end %>
-        <% if @memo.status_public? %>
-          <%= link_to "private?", memo_toggle_status_path(@memo.id), method: :patch, class: "btn btn-outline-danger" %>
+        <%# <% if @memo.status_public? %>
+          <%#<div class="btn btn-primary mr-5 float-left">public</div>
         <% else %>
-          <%= link_to "public?", memo_toggle_status_path(@memo.id), method: :patch, class: "btn btn-outline-danger" %>
+          <%#<div class="btn btn-success mr-5 float-left">private</div>
         <% end %>
+        <%# if @memo.status_public? %>
+          <%#= link_to "private?", memo_toggle_status_path(@memo.id), method: :patch, class: "btn btn-outline-danger" %>
+        <%# else %>
+          <%#= link_to "public?", memo_toggle_status_path(@memo.id), method: :patch, class: "btn btn-outline-danger" %>
+        <%# end %>
       </div>
       </div>
 
@@ -67,7 +72,7 @@
           <%= render 'layouts/error_messages', model: f.object %>
             <div class="field text-2xl text-indigo-900 font-black text-center">
               <%= f.label :content, "Comment" %><br />
-              <%= f.text_field :content, id:"comment_content" %>
+              <%= f.text_area :content, id:"comment_content", class:"break-all w-full pb-32 border-4 border-indigo-900 rounded" %>
             </div>
             <div class="actions flex justify-end">
               <%= f.submit "comment", class: "form__btn bg-indigo-900 text-white text-2xl font-normal py-2 px-2 rounded" %>
@@ -81,10 +86,19 @@
           <%# 投稿に紐づくコメントを一覧する処理を記述する %>
             <li class="comments_list list-none">
             <% @comments.each do |comment| %>
+              <div class="mb-4 border-4 border-indigo-900 rounded">
+              <p>
               <p>
                 <%= comment.content %>
                 <%= link_to comment.user.nickname, user_path(comment.user.id), class: :comment_user %>
-              </p> 
+                <% if user_signed_in? && current_user.id == comment.user_id %>
+                  <div class="prototype__manage flex justify-end">
+                    <%= link_to "delete", memo_comment_path(comment.memo.id, comment.id), method: :delete, class: "prototype__btn text-1xl font-normal px-2 py-0 m-0 rounded" %>
+                  </div>
+                <% end %>
+              </p>
+              </p>
+              </div>
             <% end %> 
             </li>
           <%# // 投稿に紐づくコメントを一覧する処理を記述する %>

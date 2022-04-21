@@ -1,41 +1,41 @@
 <div class="main font-serif font-black">
   <div class="inner flex justify-center">
     <div class="form__wrapper flex flex-col">
-      <h2 class="page-heading mx-auto text-7xl text-indigo-900">Registration</h2>
+      <h2 class="page-heading mx-0 text-4xl text-indigo-900 text-center">Registration</h2>
 
         <%# 「モデル名」にはUserモデルであれば@userを渡しましょう。%>
         <%# 「新規登録機能へのパス」は、devise導入後にrails routesを実行してdevise/registrations#createへのパスを確認し、記載してください。 %>
         <%= form_with model: @user, url: user_registration_path, local: true do |f| %>
         <%= render 'layouts/error_messages', model: f.object %>
 
-         <div class="field text-5xl text-indigo-900">
+        <div class="field text-2xl text-indigo-900 text-center">
           <%= f.label :nickname, "User Name" %><br />
-          <%= f.text_field :nickname, class: "form__text box-border h-20 w192 p-4 border-4 border-indigo-900 rounded", id:"user_nickname" %>
+          <%= f.text_field :nickname, class: "form__text border-4 border-indigo-900 rounded w-full", id:"user_nickname" %>
         </div>
         
-        <div class="field text-5xl text-indigo-900">
+        <div class="field text-2xl text-indigo-900 text-center">
           <%= f.label :email, "E-Mail" %><br />
-          <%= f.email_field :email, class: "form__text box-border h-20 w192 p-4 border-4 border-indigo-900 rounded", id:"user_email", autofocus: true, autocomplete: "email" %>
+          <%= f.email_field :email, class: "form__text border-4 border-indigo-900 rounded w-full", id:"user_email", autofocus: true, autocomplete: "email" %>
         </div>
 
-        <div class="field text-5xl text-indigo-900">
+        <div class="field text-2xl text-indigo-900 text-center">
           <%= f.label :password, "Password（More than 8 strings）" %><br />
-          <%= f.password_field :password, class: "form__text box-border h-20 w192 p-4 border-4 border-indigo-900 rounded", id:"user_password", autocomplete: "new-password" %>
+          <%= f.password_field :password, class: "form__text border-4 border-indigo-900 rounded w-full", id:"user_password", autocomplete: "new-password" %>
         </div>
 
-        <div class="field text-5xl text-indigo-900">
+        <div class="field text-2xl text-indigo-900 text-center">
           <%= f.label :password_confirmation, "Password Confirmation" %><br />
-          <%= f.password_field :password_confirmation, class: "form__text box-border h-20 w192 p-4 border-4 border-indigo-900 rounded", id:"user_password_confirmation", autocomplete: "new-password" %>
+          <%= f.password_field :password_confirmation, class: "form__text border-4 border-indigo-900 rounded w-full", id:"user_password_confirmation", autocomplete: "new-password" %>
         </div>
 
-        <div class="field text-5xl text-indigo-900">
+        <div class="field text-2xl text-indigo-900 text-center">
           <%= f.label :book, "Book of Interest(any)" %><br />
-          <%= f.text_area :book, class: "form__text box-border h-20 w192 p-4 border-4 border-indigo-900 rounded0", id:"user_book" %>
+          <%= f.text_area :book, class: "form__text border-4 border-indigo-900 rounded w-full", id:"user_book" %>
         </div>
         
-        <div class="field text-5xl text-indigo-900">
+        <div class="field text-2xl text-indigo-900 text-center">
           <%= f.label :profile, "Profile(any)" %><br />
-          <%= f.text_area :profile, class: "form__text box-border h-20 w192 p-4 border-4 border-indigo-900 rounded", id:"user_profile" %>
+          <%= f.text_area :profile, class: "form__text border-4 border-indigo-900 rounded w-full", id:"user_profile" %>
         </div>
 
         <div class="actions flex justify-end">

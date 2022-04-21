@@ -9,11 +9,11 @@
   </div>
   
   <div class="mt-0">
-    <div class="flex justify-end">
+    <div class="flex justify-between">
     <% if memo.favorited_by?(current_user) %>
     <%# 一致するレコードが存在する＝すでにいいね済みの場合はdestroyアクションへ %>
       <%= link_to memo_favorites_path(memo.id), method: :delete do %>
-      ♥<%= memo.favorites.count %> LGTM！
+      <span style="color:red;">♥</span><%= memo.favorites.count %> LGTM！
       <%# <span style="color:red;">❤︎</span> %>
       <% end %>
     <% else %>
@@ -23,21 +23,27 @@
       <%# <span>❤︎</span> %>
       <% end %>
     <% end %>
+
+    <% if current_page?(user_path(memo.user.id)) && user_signed_in? && current_user.id == memo.user_id%>
+      <%= form_with model: memo, local: true do |f|%>
+        <%= f.select :status, [["public", "public"],["private", "private"]], {}, {id: "status", class: "form-control border-2 border-indigo-900 rounded"} %>
+      <% end %>
+    <% end %>
     </div>
     
-    <div>
+    <%#<div>
     <%# <%= link_to memo.status, memo_toggle_status_path(memo), method: :patch %>
-    <% if memo.status_public? %>
-      <div class="btn btn-primary float-left bg-indigo-900 text-white text-1xl font-normal py-2 px-2 rounded">public</div>
-    <% else %>
-      <div class="btn btn-success float-left bg-indigo-900 text-white text-1xl font-normal py-2 px-2 rounded">private</div>
-    <% end %>
+    <%# if memo.status_public? %>
+      <%#<#div class="btn btn-primary float-left bg-indigo-900 text-white text-1xl font-normal py-2 px-2 rounded">public</div>
+    <%# else %>
+      <%#div class="btn btn-success float-left bg-indigo-900 text-white text-1xl font-normal py-2 px-2 rounded">private</div>
+    <%# end %>
 
-    <% if memo.status_public? %>
-      <%= link_to "private?", memo_toggle_status_path(memo.id), method: :patch, class: "btn btn-outline-danger bg-indigo-900 text-white text-1xl font-normal py-2 px-2 rounded" %>
-    <% else %>
-      <%= link_to "public?", memo_toggle_status_path(memo.id), method: :patch, class: "btn btn-outline-danger bg-indigo-900 text-white text-1xl font-normal py-2 px-2 rounded" %>
-    <% end %>
-    </div>
+    <%# if memo.status_public? %>
+      <%#= link_to "private?", memo_toggle_status_path(memo.id), method: :patch, class: "btn btn-outline-danger bg-indigo-900 text-white text-1xl font-normal py-2 px-2 rounded" %>
+    <%# else %>
+      <%#= link_to "public?", memo_toggle_status_path(memo.id), method: :patch, class: "btn btn-outline-danger bg-indigo-900 text-white text-1xl font-normal py-2 px-2 rounded" %>
+    <%# end %>
+    <%# </div>  %>
   </div>
 </div>

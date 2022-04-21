@@ -21,9 +21,9 @@ class MemosController < ApplicationController
   end
 
   def show
-    redirect_to memos_path if @memo.status_private? && @memo.user.id != current_user.id
+    #redirect_to memos_path if @memo.status_private? || @memo.user_id != current_user.id
     @comment = Comment.new
-    @comments = @memo.comments.includes(:user)
+    @comments = @memo.comments.includes(:user).order(created_at: :desc)
   end
 
   def edit
