@@ -32,20 +32,11 @@
             <%= @memo.note %>
           </p>
         </div>
+
         <div class="flex justify-end">
-        <% if @memo.favorited_by?(current_user) %>
-        <%# 一致するレコードが存在する＝すでにいいね済みの場合はdestroyアクションへ %>
-          <%= link_to memo_favorites_path(@memo.id), method: :delete do %>
-          <span style="color:red;">♥</span><%= @memo.favorites.count %> LGTM！
-          <%# <span style="color:red;">❤︎</span> %>
-          <% end %>
-        <% else %>
-        <%# 一致するレコードが存在しない＝まだいいねしていない場合はcreateアクションへ %>
-          <%= link_to memo_favorites_path(@memo.id), method: :post do %>
-          ♡<%= @memo.favorites.count %> LGTM！
-          <%# <span>❤︎</span> %>
-          <% end %>
-        <% end %>
+        <div id="favorite_buttons_<%= @memo.id %>">
+          <%= render "favorites/favorite", memo: @memo %>
+        </div>
         
         <% if user_signed_in? && current_user.id == @memo.user_id %>
           <%= form_with model: @memo, local: true do |f|%>
@@ -62,7 +53,7 @@
         <%# else %>
           <%#= link_to "public?", memo_toggle_status_path(@memo.id), method: :patch, class: "btn btn-outline-danger" %>
         <%# end %>
-      </div>
+        </div>
       </div>
 
       <div class="prototype__comments">

@@ -1,0 +1,13 @@
+<% if current_user.favorited_by?(memo) %>
+<%# 一致するレコードが存在する＝すでにいいね済みの場合はdestroyアクションへ %>
+  <%= link_to memo_favorites_path(memo), method: :delete, remote: true do %>
+  <span style="color:red;">♥</span><%= memo.favorites.count %> LGTM！
+  <%# <span style="color:red;">❤︎</span> %>
+  <% end %>
+<% else %>
+<%# 一致するレコードが存在しない＝まだいいねしていない場合はcreateアクションへ %>
+  <%= link_to memo_favorites_path(memo), method: :post, remote: true do %>
+  ♡<%= memo.favorites.count %> LGTM！
+  <%# <span>❤︎</span> %>
+  <% end %>
+<% end %>
