@@ -4,9 +4,10 @@
       <%= render partial:'memo', collection: @memos%>
     </div>
       
-    <div class="memo-btn fixed right-0 bottom-0 bg-indigo-900 text-white text-3xl font-normal py-4 px-4 rounded">
+    <div class="memo-btn fixed right-0 bottom-0 bg-indigo-900 text-white py-2 px-4 rounded">
       <%= link_to(new_memo_path, class: "memo-btn") do %>
-      <span class="memo-btn-text">memo</span>
+      <span class="material-icons text-6xl">note_add</span>
+      <%# <span class="memo-btn-text">memo</span> %>
       <%#= image_tag 'icon_camera.png' , size: '185x50' ,class: "purchase-btn-icon" %>
       <% end %>
     </div>

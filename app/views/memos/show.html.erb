@@ -66,7 +66,9 @@
               <%= f.text_area :content, id:"comment_content", class:"break-all w-full pb-32 border-4 border-indigo-900 rounded" %>
             </div>
             <div class="actions flex justify-end">
-              <%= f.submit "comment", class: "form__btn bg-indigo-900 text-white text-2xl font-normal py-2 px-2 rounded" %>
+              <%= button_tag type: 'submit', class: "form__btn bg-indigo-900 text-white py-1 px-4 rounded" do%>
+              <span class="material-icons text-4xl">send</span>
+              <% end %>
             </div>
           <% end %>
         <% else %>
@@ -84,7 +86,9 @@
                 <%= link_to comment.user.nickname, user_path(comment.user.id), class: :comment_user %>
                 <% if user_signed_in? && current_user.id == comment.user_id %>
                   <div class="prototype__manage flex justify-end">
-                    <%= link_to "delete", memo_comment_path(comment.memo.id, comment.id), method: :delete, class: "prototype__btn text-1xl font-normal px-2 py-0 m-0 rounded" %>
+                    <%= link_to memo_comment_path(comment.memo.id, comment.id), method: :delete, class: "prototype__btn px-2 py-0 m-0 rounded" do%>
+                    <span class="material-icons flex justify-center text-1xl">delete</span>
+                    <%end%>
                   </div>
                 <% end %>
               </p>

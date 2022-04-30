@@ -18,6 +18,9 @@ div {
 body {
   font-family: "Noto Sans JP", "Hiragino Kaku Gothic ProN W3", sans-serif;
   color: #3b4043;
+  background-image: url(https://user-images.githubusercontent.com/100825456/165785434-c90c47bc-9a8a-45b3-a6cb-64c5e31315ce.jpeg);
+  background-color:rgba(255,255,255,0.90);
+  background-blend-mode:lighten;
 }
 
 li {
@@ -37,10 +40,12 @@ a {
 /* ヘッダー */
 
 .header {
-  background-color: #f1f8fe;
+  /* background-color: #f1f8fe; */
   margin-bottom: 48px;
   padding: 20px 0;
-
+  background-image: url(https://user-images.githubusercontent.com/100825456/165785434-c90c47bc-9a8a-45b3-a6cb-64c5e31315ce.jpeg);
+  background-color:rgba(255,255,255,0.90);
+  background-blend-mode:lighten;
 }
 .inner {
   width: 1024px;
@@ -52,7 +57,8 @@ a {
   justify-content: space-between;
 }
 .logo {
-  width: 200px;
+  width: 255px;
+  height: 255px;
 }
 .nav__btn{
   display: inline-block;

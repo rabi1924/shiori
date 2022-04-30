@@ -11,7 +11,7 @@ class User < ApplicationRecord
   validates :nickname, presence: true
   validates :password, format: { with: /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]{8}\z/i }
 
-  def favorited_by?(memo_id)
-    favorites.where(memo_id: memo_id).exists?
-  end
+  #def favorited_by?(memo_id)
+    #favorites.where(memo_id: memo_id).exists?
+  #end
 end

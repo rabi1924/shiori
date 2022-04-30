@@ -29,7 +29,9 @@
   </div>
 
   <div class="actions flex justify-end">
-    <%= f.submit "save", class: "form__btn bg-indigo-900 text-white text-2xl font-normal py-3 px-3 rounded" %>
+    <%= button_tag type: 'submit', class: "form__btn bg-indigo-900 text-white py-1 px-4 rounded" do%>
+    <span class="material-icons text-4xl">send</span>
+    <% end %>
   </div>
 </div>
 <% end %>
