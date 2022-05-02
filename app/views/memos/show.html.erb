@@ -39,9 +39,10 @@
         </div>
         
         <% if user_signed_in? && current_user.id == @memo.user_id %>
-          <%= form_with model: @memo, local: true do |f|%>
-          <%= f.select :status, [["public", "public"],["private", "private"]], {}, {id: "status", class: "form-control border-2 border-indigo-900 rounded"} %>
-          <% end %>
+          <%= link_to @memo.status, memo_toggle_status_path(@memo), method: :patch , class: "bg-indigo-900 text-white border-4 border-indigo-900 rounded"%>
+          <%# <%= form_with model: @memo, local: true do |f|%>
+          <%#= f.select :status, [["public", "public"],["private", "private"]], {}, {id: "status", class: "form-control border-2 border-indigo-900 rounded"} %>
+          <%# end %>
         <% end %>
         <%# <% if @memo.status_public? %>
           <%#<div class="btn btn-primary mr-5 float-left">public</div>
