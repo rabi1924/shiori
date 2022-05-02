@@ -11,8 +11,8 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    Comment.find_by(params[:id] || params[:memo_id]).destroy
-    redirect_to memo_path
+    Comment.find_by(id: params[:id], memo_id: params[:memo_id]).destroy
+    redirect_to memos_path
   end
 
   private

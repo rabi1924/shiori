@@ -29,8 +29,9 @@
           <% end %>
           </div>
           <%# ログインしているときは以下を表示するようにしましょう %>
+          <div class="my-auto">
           <% if user_signed_in? %>
-            <div class="nav__right my-auto">
+            <div class="nav__right">
               <%= link_to "log out", destroy_user_session_path, method: :delete, class: "nav__logout bg-indigo-900 text-white text-3xl font-normal py-4 px-4 rounded" %>
               <%= link_to "#{current_user.nickname}", "/users/#{current_user.id}", class: "nav__btn bg-indigo-900 text-white text-3xl font-normal py-4 px-4 rounded" %>
             </div>
@@ -43,6 +44,7 @@
             </div>
           <%# // ログインしていないときは上記を表示するようにしましょう %>
           <% end %>
+          </div>
         </div>
       </div>
     </header>
