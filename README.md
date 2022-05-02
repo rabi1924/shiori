@@ -12,8 +12,8 @@ https://shiori-37746.herokuapp.com/
 # テスト用アカウント
 ●Basic認証ID：admin
 ●Basic認証PASS：2222
-●メールアドレス：
-●パスワード：
+●メールアドレス：test@test7
+●パスワード：1234abcd
 
 # 利用方法
 ※作成中
